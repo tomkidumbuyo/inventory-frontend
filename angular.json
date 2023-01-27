@@ -28,9 +28,19 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/plugins/charts-c3/plugin.css",
+              "src/assets/css/dashboard.css",
+              "src/assets/plugins/maps-google/plugin.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/require.min.js",
+              "src/assets/js/dashboard.js",
+              "src/assets/plugins/charts-c3/plugin.js",
+              "src/assets/plugins/maps-google/plugin.js",
+              "src/assets/plugins/input-mask/plugin.js",
+              "src/assets/plugins/datatables/plugin.js"
+            ]
           },
           "configurations": {
             "production": {
