@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+import { EquipmentRoutingModule } from './equipment-routing.module';
+
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    MatSnackBarModule,
-  ],
-  exports: [
-    MatSnackBarModule,
+    EquipmentRoutingModule
   ]
 })
-export class SharedModule { }
+export class EquipmentModule { }
