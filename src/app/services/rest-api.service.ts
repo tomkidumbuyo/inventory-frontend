@@ -10,102 +10,62 @@ declare var $: any;
   providedIn: 'root',
 })
 export class RestApiService {
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
   };
 
-  authHttpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-    }),
-  };
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private http: HttpClient) {
+  getAuthorizedRequestHeader() {
     const authDataString = localStorage.getItem(
       AuthenticationTypes.LOCAL_STORAGE_AUTH_DATA_KEY
     );
     const authData = authDataString ? JSON.parse(authDataString) : null;
     if (authData && authData !== 'null') {
-      this.authHttpOptions = {
+      return  {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: 'Bearer ' + authData.accessToken,
+          'Authorization': `Bearer ${authData.accessToken}`,
         }),
       };
     }
+    return this.httpOptions
   }
 
   get(url: string) {
     return new Promise(async (resolve, reject) => {
-      this.http
-        .get<any>(environment.backendUrl + url, this.httpOptions)
+      this.httpClient
+        .get<any>(environment.backendUrl + url, this.getAuthorizedRequestHeader())
         .pipe(retry(1))
         .subscribe(
           (res) => {
             resolve(res);
           },
-          (err) => {
-            this.handleError(err, reject);
-          }
-        );
-    });
-  }
-
-  getAuth(url: string) {
-    return new Promise(async (resolve, reject) => {
-      this.http
-        .get<any>(environment.backendUrl + url, this.authHttpOptions)
-        .pipe(retry(1))
-        .subscribe(
-          (res) => {
-            resolve(res);
-          },
-          (err) => {
-            this.handleError(err, reject);
+          (error) => {
+            this.handleError(error, reject);
           }
         );
     });
   }
 
   post(url: string, data: any) {
-    console.log(environment.backendUrl + url);
-
     return new Promise(async (resolve, reject) => {
-      this.http
+      this.httpClient
         .post<any>(
           environment.backendUrl + url,
           $.param(data),
-          this.httpOptions
+          this.getAuthorizedRequestHeader()
         )
         .pipe(retry(1))
         .subscribe(
           (res) => {
             resolve(res);
           },
-          (err) => {
-            this.handleError(err, reject);
-          }
-        );
-    });
-  }
-
-  postAuth(url: string, data: any) {
-    return new Promise(async (resolve, reject) => {
-      this.http
-        .post<any>(
-          environment.backendUrl + url,
-          $.param(data),
-          this.authHttpOptions
-        )
-        .pipe(retry(1))
-        .subscribe(
-          (res) => {
-            resolve(res);
-          },
-          (err) => {
-            this.handleError(err, reject);
+          (error) => {
+            this.handleError(error, reject);
           }
         );
     });
@@ -113,35 +73,19 @@ export class RestApiService {
 
   put(url: string, data: any) {
     return new Promise(async (resolve, reject) => {
-      this.http
-        .put<any>(environment.backendUrl + url, $.param(data), this.httpOptions)
-        .pipe(retry(1))
-        .subscribe(
-          (res) => {
-            resolve(res);
-          },
-          (err) => {
-            this.handleError(err, reject);
-          }
-        );
-    });
-  }
-
-  putAuth(url: string, data: any) {
-    return new Promise(async (resolve, reject) => {
-      this.http
+      this.httpClient
         .put<any>(
           environment.backendUrl + url,
           $.param(data),
-          this.authHttpOptions
+          this.getAuthorizedRequestHeader()
         )
         .pipe(retry(1))
         .subscribe(
           (res) => {
             resolve(res);
           },
-          (err) => {
-            this.handleError(err, reject);
+          (error) => {
+            this.handleError(error, reject);
           }
         );
     });
@@ -149,31 +93,15 @@ export class RestApiService {
 
   delete(url: string) {
     return new Promise(async (resolve, reject) => {
-      this.http
-        .delete<any>(environment.backendUrl + url, this.httpOptions)
+      this.httpClient
+        .delete<any>(environment.backendUrl + url, this.getAuthorizedRequestHeader())
         .pipe(retry(1))
         .subscribe(
           (res) => {
             resolve(res);
           },
-          (err) => {
-            this.handleError(err, reject);
-          }
-        );
-    });
-  }
-
-  deleteAuth(url: string) {
-    return new Promise(async (resolve, reject) => {
-      this.http
-        .delete<any>(environment.backendUrl + url, this.authHttpOptions)
-        .pipe(retry(1))
-        .subscribe(
-          (res) => {
-            resolve(res);
-          },
-          (err) => {
-            this.handleError(err, reject);
+          (error) => {
+            this.handleError(error, reject);
           }
         );
     });
@@ -182,4 +110,5 @@ export class RestApiService {
   handleError(error: any, reject: any) {
     reject(error);
   }
+
 }

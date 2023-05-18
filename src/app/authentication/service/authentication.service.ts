@@ -21,19 +21,13 @@ export class AuthenticationService {
     }
   }
 
-  isLoggedIn() {
+  async getAuthStatus(): Promise<Boolean> {
     return new Promise(async (resolve, reject) => {
-      if (this.accessToken && this.user) {
-        this.restApi
-          .getAuth('auth/isLoggedIn')
-          .then((data) => {
-            resolve(data);
-          })
-          .catch((err) => {
-            reject(false);
-          });
-      } else {
-        reject(false);
+      try {
+        const isAuthenticated = await this.restApi.get(AuthenticationEndpoints.AUTH_IS_AUTHENTICATED)
+        resolve(true);
+      } catch (error) {
+        resolve(false);
       }
     });
   }
@@ -70,10 +64,10 @@ export class AuthenticationService {
         })
         .then((data: any) => {
           this.user = data.user;
-          this.accessToken = data.accessToken;
+          this.accessToken = data.access_token;
           localStorage.setItem(
             AuthenticationTypes.LOCAL_STORAGE_AUTH_DATA_KEY,
-            JSON.stringify({ user: this.user, accessToken: this.accessToken })
+            JSON.stringify({ user: data.user, accessToken: data.access_token })
           );
           resolve(this.user);
         })

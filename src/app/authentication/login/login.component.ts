@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
       this.authenticationForm.value.password
     ).then(
       (data: any) => {
-        console.log(data)
         this.router.navigate(["/"]);
       },
       (error) => {

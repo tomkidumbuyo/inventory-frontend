@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SummaryComponent } from './summary.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [{
   path: '',
@@ -8,7 +9,8 @@ const routes: Routes = [{
   pathMatch: 'full'
 }, {
   path: 'summary',
-  component: SummaryComponent
+  component: SummaryComponent,
+  canActivate: [AuthGuard]
 }];
 
 @NgModule({
