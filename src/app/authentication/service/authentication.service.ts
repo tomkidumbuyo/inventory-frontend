@@ -78,15 +78,11 @@ export class AuthenticationService {
     });
   }
 
-  storeLoginData() {
-
-  }
-
   logout() {
-    // remove user data from local storage for log out
     localStorage.removeItem(AuthenticationTypes.LOCAL_STORAGE_AUTH_DATA_KEY);
     this.user = false;
     this.accessToken = false;
+    this.router.navigate(['/authentication']);
   }
 
   getUser() {

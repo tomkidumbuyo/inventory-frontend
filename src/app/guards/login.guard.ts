@@ -17,11 +17,11 @@ export class LoginGuard implements CanActivate {
       return new Promise((resolve, reject) => {
         this.authService.getAuthStatus()
         .then((isAuthenticated: Boolean) => {
-          if (!isAuthenticated) {
-            resolve(true);
+          if (isAuthenticated) {
+            this.router.navigate(['/']);
+            resolve(false);
           }
-          this.router.navigate(['/']);
-          resolve(false);
+          resolve(true);
         })
         .catch((err) => {
           resolve(true);
