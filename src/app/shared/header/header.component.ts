@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/authentication/service/authentication.service';
 import { UserService } from 'src/app/services/user.service';
+import { HeaderService } from './header.service';
+import { MainMenuEnum } from 'src/app/types';
 
 @Component({
   selector: 'app-header',
@@ -9,20 +11,34 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  user: any
+  user: any;
+  headerDataObserver: any;
+  page: MainMenuEnum;
+
   constructor(
     private userService: UserService,
+    private headerService: HeaderService,
     private authenticationService: AuthenticationService
   ) {
     this.getUser()
+
+    this.page = headerService.getPage();
+    this.headerDataObserver = this.headerService.getDataObservable();
+    this.headerDataObserver.subscribe((data: any) => {
+        this.page = data.page;
+      }
+    );
   }
 
   async getUser() {
     this.user = await this.userService.getUser()
-    console.log(this.user)
   }
 
   ngOnInit(): void {
+  }
+
+  public get mainMenuEnum(): typeof MainMenuEnum {
+    return MainMenuEnum;
   }
 
   logout() {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HeaderService } from '../shared/header/header.service';
+import { MainMenuEnum } from '../types';
 
 @Component({
   selector: 'app-setting',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(
+    private headerService: HeaderService,
+  ) {
+    this.headerService.setPage(MainMenuEnum.SETTING);
+  }
   ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
 
 }

@@ -13,3 +13,16 @@ export interface UserInterface{
 	createdAt:  Date;
 	updatedAt:  Date;
 }
+
+
+
+
+export enum MainMenuEnum {
+  SUMMARY = 'SUMMARY',
+  STORES = 'STORES',
+  MOVEMENT = 'MOVEMENT',
+  EQUIPMENT = 'EQUIPMENT',
+  TEAM = 'TEAM',
+  SETTING = "SETTING",
+  USER = "USER"
+}

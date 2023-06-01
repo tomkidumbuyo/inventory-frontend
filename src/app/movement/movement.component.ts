@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HeaderService } from '../shared/header/header.service';
+import { MainMenuEnum } from '../types';
 
 @Component({
   selector: 'app-movement',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MovementComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(
+    private headerService: HeaderService,
+  ) {
+    this.headerService.setPage(MainMenuEnum.MOVEMENT);
+  }
+  
   ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
 
 }

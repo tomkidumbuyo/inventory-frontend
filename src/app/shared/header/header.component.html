@@ -44,19 +44,19 @@
       <div class="col-lg order-lg-first">
         <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
           <li class="nav-item">
-            <a  [routerLink]="['/summary']" class="nav-link active"><i class="fe fe-home"></i> Summary</a>
+            <a  [routerLink]="['/summary']" class="nav-link" [ngClass]="{'active': page === mainMenuEnum.SUMMARY}"><i class="fe fe-home"></i> Summary</a>
           </li>
           <li class="nav-item">
-            <a  [routerLink]="['/movement']" class="nav-link "><i class="fe fe-map"></i> Movement</a>
+            <a  [routerLink]="['/movement']" class="nav-link" [ngClass]="{'active': page === mainMenuEnum.MOVEMENT}"><i class="fe fe-map"></i> Movement</a>
           </li>
           <li class="nav-item">
-            <a  [routerLink]="['/store']" class="nav-link "><i class="fe fe-map"></i> Stores</a>
+            <a  [routerLink]="['/store']" class="nav-link" [ngClass]="{'active': page === mainMenuEnum.STORES}"><i class="fe fe-map"></i> Stores</a>
           </li>
           <li class="nav-item">
-            <a  [routerLink]="['/equipment']" class="nav-link"><i class="fe fe-image"></i> Equipment</a>
+            <a  [routerLink]="['/equipment']" class="nav-link" [ngClass]="{'active': page === mainMenuEnum.EQUIPMENT}"><i class="fe fe-image"></i> Equipment</a>
           </li>
           <li class="nav-item">
-            <a  [routerLink]="['/team']" class="nav-link"><i class="fe fe-image"></i> Team</a>
+            <a  [routerLink]="['/team']" class="nav-link" [ngClass]="{'active': page === mainMenuEnum.TEAM}"><i class="fe fe-image"></i> Team</a>
           </li>
         </ul>
       </div>

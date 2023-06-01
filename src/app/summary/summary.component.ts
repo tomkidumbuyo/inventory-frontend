@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HeaderService } from '../shared/header/header.service';
+import { MainMenuEnum } from '../types';
 
 @Component({
   selector: 'app-summary',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SummaryComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private headerService: HeaderService,
+  ) {
+    this.headerService.setPage(MainMenuEnum.SUMMARY);
+  }
 
   ngOnInit(): void {
   }
